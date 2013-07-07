@@ -1,21 +1,31 @@
+require 'watir'
+browser = Watir::Browser.new
+url = "http://localhost:3000"
+
 Given(/^I visit the calculator page for add$/) do
-  visit "http://localhost:3000/add" # express the regexp above with the code you wish you had
+  browser.goto "#{url}/add"
 end
 
 Given(/^I fill in '(\d+)' for 'first'$/) do |number|
-	fill_in 'first', :with => number
+  browser.text_field(:id => 'first').set number
 end
 
 Given(/^I fill in '(\d+)' for 'second'$/) do |number|
-	fill_in 'second', :with => number
+  browser.text_field(:id => 'second').set number
+end
+
+Given(/^I fill in nothing for 'second'$/) do
+  browser.text_field(:id => 'second').set 0
+end
+
+Given(/^I fill in nothing for 'first'$/) do
+  browser.text_field(:id => 'first').set 0
 end
 
 Given(/^I click on 'Add'$/) do
-	click_button('Add')
+  browser.button(:id => 'add_button').click
 end
 
 Then(/^I should see '(\d+)'$/) do |answer|
-	within("#answer") do
-    	page.has_content?(answer)
-  	end
+  assert_equal(browser.div(:id => 'answer').text, answer)
 end
