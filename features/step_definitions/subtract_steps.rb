@@ -26,6 +26,7 @@ Given(/^I fill in nothing for 's_second'$/) do
   browser.text_field(:id=> 's_second').set ''
 end
 
-Then(/^the difference should be '\-(\d+)'$/) do |answer|
-assert_equal(browser.div(:id => 's_answer').text, answer)
+Then(/^the difference should be '(\-\d+)'$/) do |answer|
+	assert_equal(browser.div(:id => 's_answer').text, answer)
 end
+
